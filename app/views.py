@@ -1,6 +1,13 @@
 from flask import render_template, request, flash, redirect, url_for
 from app import app
 from .sudopy import Sudoku
+import os
+
+app.config.from_object('local_config')
+
+if 'HEROKU' in os.environ:
+    app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
+    app.config['DEBUG'] = os.environ['DEBUG']
 
 @app.route('/')
 @app.route('/index')
